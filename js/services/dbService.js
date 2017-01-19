@@ -21,8 +21,10 @@ $(document).ready(function(){
   DBService.insert = function(type, id, data){
     return new Promise((resolve, reject)=>{
       data._id = type + separator + id;
+      data.type = type;
       db.put(data)
         .then((doc) => {
+          db.sync(remote);
           resolve(doc);
         })
         .catch((err) => {
@@ -37,6 +39,7 @@ $(document).ready(function(){
         .then((doc) => {
           db.remove(doc)
             .then((result) => {
+              db.sync(remote);
               resolve(result);
             })
             .catch((err) => {
@@ -47,6 +50,20 @@ $(document).ready(function(){
           reject(err);
         })
     })
+  }
+
+  DBService.getAllByType = function(type){
+    return new Promise((resolve, reject)=>{
+      db.query((doc, emit) => {
+        emit(doc.type);
+      }, {key: type, include_docs: true})
+        .then((documents) => {
+          resolve(documents.rows);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+    });
   }
 
   window.DBService = DBService;
