@@ -4,8 +4,12 @@ $(document).ready(function(){
 
   UserService.register = function(userData){
     return new Promise((resolve, reject)=>{
-      // DBService.insert(userKey, userData)
-        // .then()
+      DBService.insert(userKey, userData.name, userData)
+        .then(function(){
+          
+        })
+        .catch(function(){
+        })
     });
   }
 
@@ -19,7 +23,7 @@ $(document).ready(function(){
 
   UserService.edit = function(userData){
     return new Promise((resolve, reject)=>{
-      
+
     });
   }
 

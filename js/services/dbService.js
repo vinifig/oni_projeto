@@ -7,6 +7,7 @@ $(document).ready(function(){
   const DBService = {}
 
   DBService.find = function(type, id){
+    db.sync(remote);
     return new Promise((resolve, reject)=>{
       db.get(type + separator + id)
         .then((doc) => {
@@ -53,6 +54,7 @@ $(document).ready(function(){
   }
 
   DBService.getAllByType = function(type){
+    db.sync(remote);
     return new Promise((resolve, reject)=>{
       db.query((doc, emit) => {
         emit(doc.type);

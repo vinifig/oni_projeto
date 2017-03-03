@@ -19,15 +19,16 @@ body, .content, .content > *{
 }
 
 .app{
+  background-color: #131313;
   min-width: 400px;
   width: calc(50vw - 160px);
   height: calc(100vh);
-  /*height: calc(100vh - 30px);*/
   padding: 15px 0;
+  overflow-y: scroll;
 }
 
 .map{
-  width: calc(50vw - 89px);
+  width: calc(50vw + 71px);
 }
 
 .nav{
@@ -57,9 +58,21 @@ body, .content, .content > *{
 
 .feed-options ul li.selected{
   /*border-bottom: 2px solid #673AB7;*/
-  border-bottom: 2px solid #00897b;
+  border-bottom: 2px solid rgb(38, 166, 154);
 }
 
 textarea{
   max-height: 250px;
+}
+
+.paneltab{
+  display: none;
+}
+
+.paneltab.active{
+  display: block;
+}
+
+#publicar-button{
+  margin-left: 10px;
 }
