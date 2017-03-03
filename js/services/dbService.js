@@ -1,6 +1,6 @@
 $(document).ready(function(){
   const db = new PouchDB('danitcc');
-  const remote = new PouchDB('http://localhost:5984/danitcc');
+  const remote = new PouchDB('http://oniprojeto.com.br/couchdb/danitcc');
   const separator = '$';
   db.sync(remote);
 

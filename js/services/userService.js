@@ -5,11 +5,8 @@ $(document).ready(function(){
   UserService.register = function(userData){
     return new Promise((resolve, reject)=>{
       DBService.insert(userKey, userData.name, userData)
-        .then(function(){
-          
-        })
-        .catch(function(){
-        })
+        .then(resolve)
+        .catch(reject);
     });
   }
 
@@ -17,7 +14,7 @@ $(document).ready(function(){
     return new Promise((resolve, reject)=>{
       // DBService.get(userKey, userData)
         // .then(processaSenha)
-      resolve(userData);
+        // resolve(userData);
     });
   }
 
@@ -26,6 +23,12 @@ $(document).ready(function(){
 
     });
   }
+
+  function setUser(userData){
+
+  }
+
+  // userService.getUser
 
   window.UserService = UserService;
 })
