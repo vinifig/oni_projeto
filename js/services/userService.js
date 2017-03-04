@@ -24,11 +24,16 @@ $(document).ready(function(){
     });
   }
 
-  function setUser(userData){
+  function setUserLogin(userData){
 
   }
 
-  // userService.getUser
+  UserService.getUserLoggedIn = function(){
+    return new Promise((resolve, reject)=>{
+      let user = JSON.parse(localStorage.getItem('user'));
+      resolve(user)
+    })
+  }
 
   window.UserService = UserService;
 })

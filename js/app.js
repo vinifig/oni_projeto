@@ -1,6 +1,20 @@
 var initial_tab = 'todos';
 let markers = [];
 
+function start(){
+  updateData();
+  setInterval(updateData, 2 * 60 * 1000);
+
+  UserService.getUserLoggedIn()
+    .then(function(user){
+      $("#username").text(user.name);
+    })
+    .catch(function(err){
+      location.href = 'login.html'
+    })
+}
+
+
 function addMarker(lat, lng) {
   var marker = new google.maps.Marker({
     position: new google.maps.LatLng(lat, lng),
@@ -76,11 +90,6 @@ function updateData(){
     })
 }
 
-function start(){
-  updateData();
-  setInterval(updateData, 2 * 60 * 1000);
-}
-
 function selectTab(name){
   $('.select-button').removeClass('selected');
   $('.paneltab').removeClass('active');
@@ -92,12 +101,19 @@ $(document).ready(function(){
   $('#novo-tab').submit(function(e){
     e.preventDefault();
     var projectData = ProjectService.arrayParser($(this).serializeArray());
-    ProjectService.insert(projectData)
-      .then(function(result){
-        updateData()
+    UserService.getUserLoggedIn()
+      .then(function(user){
+        projectData.user = user;
+        ProjectService.insert(projectData)
+        .then(function(result){
+          updateData()
+        })
+        .catch(function(error){
+          console.log(error);
+        })
       })
-      .catch(function(error){
-        console.log(error);
+      .catch(function(err){
+        console.log(err);
       })
   });
 
