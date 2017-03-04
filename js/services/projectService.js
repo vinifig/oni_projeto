@@ -1,6 +1,6 @@
 $(document).ready(function(){
   const ProjectService = {};
-  const projectKey = 'user';
+  const projectKey = 'project';
 
   const projectFieldsHash = {
     'project_name': 'name',

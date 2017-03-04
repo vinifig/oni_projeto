@@ -60,6 +60,7 @@ function inflateDocument(doc){
           <p>${doc.description}</p>
           <p>Data: ${doc.date}</p>
           <p>Hora: ${doc.hour}</p>
+          <p>Contato: ${doc.user.contact}</p>
         </div>
         <div class="card-action">
           <a class="ver-button" lat="${doc.lat}" lng="${doc.lng}" href="#">Ver</a>
@@ -121,6 +122,8 @@ $(document).ready(function(){
     var name = $(this).attr('id').split('-')[0];
     selectTab(name);
   });
+
+  // $('#logout').click(UserService.logout);
 
   start();
 })
