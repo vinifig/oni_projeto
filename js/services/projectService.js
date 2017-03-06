@@ -11,12 +11,45 @@ $(document).ready(function(){
     'descricao': 'description'
   }
 
-  ProjectService.insert = function(projectData){
+  ProjectService.insert = function(projectData, projectId){
     return new Promise((resolve, reject)=>{
-      DBService.insert(projectKey, projectData.name, projectData)
-        .then(resolve)
-        .catch(reject)
+      let insert;
+      if(projectId !== undefined){
+        insert = DBService.insert(projectData, projectId);
+      }else {
+        insert = DBService.insert(projectData, projectKey, projectData.name)
+      }
+      insert.then(resolve).catch(reject)
     });
+  }
+
+  ProjectService.find = function(projectId){
+    return new Promise((resolve, reject)=>{
+      DBService.find(projectId)
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  ProjectService.subscribe = function(projectId){
+    return new Promise((resolve, reject)=>{
+      ProjectService.find(projectId)
+        .then((project)=>{
+          UserService.getUserLoggedIn()
+            .then((user)=>{
+              if(project.users == undefined){
+                project.users = [];
+              }
+              let filtered = project.users.filter((puser)=>puser.name == user.name);
+              if(filtered.length == 0){
+                project.users.push(user);
+              }
+              ProjectService.insert(project, projectId);
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    })
   }
 
   ProjectService.getAll = function(){

@@ -8,8 +8,9 @@ $(document).ready(function(){
 
   DBService.find = function(type, id){
     db.sync(remote);
+    let parsedId = id == undefined ? type : type + separator + id;
     return new Promise((resolve, reject)=>{
-      db.get(type + separator + id)
+      db.get(parsedId)
         .then((doc) => {
           resolve(doc);
         })
@@ -19,10 +20,12 @@ $(document).ready(function(){
     })
   }
 
-  DBService.insert = function(type, id, data){
+  DBService.insert = function(data, type, id){
+    let parsedType = id == undefined ? type.split(separator)[0] : type;
+    let parsedId = id == undefined ? type : type + separator + id;
     return new Promise((resolve, reject)=>{
-      data._id = type + separator + id;
-      data.type = type;
+      data._id = parsedId;
+      data.type = parsedType;
       db.put(data)
         .then((doc) => {
           db.sync(remote);

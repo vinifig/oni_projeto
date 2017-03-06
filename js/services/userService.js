@@ -12,7 +12,7 @@ $(document).ready(function(){
 
   UserService.register = function(userData){
     return new Promise((resolve, reject)=>{
-      DBService.insert(userKey, userData.name, userData)
+      DBService.insert(userData, userKey, userData.name)
         .then(resolve)
         .catch(reject);
     });

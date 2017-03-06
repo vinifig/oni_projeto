@@ -1,12 +1,13 @@
 var initial_tab = 'todos';
 let markers = [];
-
+let guser;
 function start(){
   updateData();
   setInterval(updateData, 2 * 60 * 1000);
 
   UserService.getUserLoggedIn()
     .then(function(user){
+      guser = user;
       $("#username").text(user.name);
     })
     .catch(function(err){
@@ -50,8 +51,9 @@ function centerMap(lat, lng, zoom){
   }
 }
 
-function inflateDocument(doc){
-  return `
+function inflateDocument(doc, user){
+  doc.users = doc.users || [];
+  let base = `
   <div class="col s12">
     <div class="card horizontal blue-grey darken-1">
       <div class="card-stacked">
@@ -61,14 +63,28 @@ function inflateDocument(doc){
           <p>Data: ${doc.date}</p>
           <p>Hora: ${doc.hour}</p>
           <p>Contato: ${doc.user.contact}</p>
+          <p>${doc.users.length} inscrito${doc.users.length > 1 ? 's' : ''}</p>
         </div>
         <div class="card-action">
-          <a class="ver-button" lat="${doc.lat}" lng="${doc.lng}" href="#">Ver</a>
+          <a class="ver-button" lat="${doc.lat}" lng="${doc.lng}" href="#">Ver</a>`;
+  try{
+    let filtered = doc.users.filter((puser)=>puser.name == user.name);
+    if(filtered !== 0){
+      base += `<a disabled id="${doc._id}" href="#">Inscrito</a>`
+    }else{
+      base += `<a class="inscrever-button" id="${doc._id}" href="#">Inscrever-se</a>`;
+    }
+  }
+  catch(e){
+    base += `<a class="inscrever-button" id="${doc._id}" href="#">Inscrever-se</a>`;
+  }
+  base += `
         </div>
       </div>
     </div>
   </div>
   `
+  return base;
 }
 
 function updateData(){
@@ -76,13 +92,17 @@ function updateData(){
     .then((docs)=>{
         $('#todos-tab').empty();
         for(let doc of docs){
-          $('#todos-tab').prepend(inflateDocument(doc));
+          $('#todos-tab').prepend(inflateDocument(doc, guser));
           addMarker(doc.lat, doc.lng);
         }
         $('.ver-button').click(function(){
           let lat = $(this).attr('lat');
           let lng = $(this).attr('lng');
           centerMap(lat, lng, 12);
+        })
+        $('.inscrever-button').click(function(){
+          let _id = $(this).attr('id');
+          ProjectService.subscribe(_id);
         })
       // if()
     })
