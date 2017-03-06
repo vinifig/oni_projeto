@@ -22,6 +22,7 @@ body, .container{
   position: fixed;
   top: 0;
   left: 0;
+  filter: brightness(60%);;
 }
 
 .nav-right-sidebar{
@@ -46,10 +47,17 @@ body, .container{
   padding: 10px 0;
 }
 
-.nav-right-sidebar .item-bar .item-bar-title{
+.nav-right-sidebar .item-bar .item-bar-title, .nav-right-sidebar .item-bar .item-bar-title a{
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.1rem;
   margin-bottom: 5px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.nav-right-sidebar .item-bar .item-bar-title a:hover{
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 #about-item{
@@ -66,4 +74,30 @@ body, .container{
 
 #register-item .item-bar-container{
   border-bottom: 1.5px solid rgba(0, 0, 0, 0.4);
+}
+
+.menu-items a{
+  padding:20px;
+  position: fixed;
+}
+
+.menu-items a img{
+  width: 30px;
+  height: 30px;
+}
+
+.left{
+  left: 0;
+}
+
+.right{
+  right: 0;
+}
+
+.top{
+  top: 0;
+}
+
+.bottom{
+  bottom: 0;
 }
