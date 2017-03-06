@@ -123,7 +123,7 @@ $(document).ready(function(){
     selectTab(name);
   });
 
-  // $('#logout').click(UserService.logout);
+  $('#logout').click(UserService.logout);
 
   start();
 })
