@@ -99,3 +99,22 @@ textarea{
 #publicar-button{
   margin-left: 10px;
 }
+
+p.lista-inscritos{
+  display:none;
+}
+p.lista-inscritos.show{
+  display:list-item;
+  margin-left: 15px;
+  list-style: disc;
+  font-size:1.2rem;
+}
+
+a.listar-button span{
+  display: none;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+}
+a.listar-button span.show{
+  display:inline-block;
+}

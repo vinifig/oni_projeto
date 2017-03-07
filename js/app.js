@@ -54,7 +54,7 @@ function centerMap(lat, lng, zoom){
 function inflateDocument(doc, user){
   doc.users = doc.users || [];
   let base = `
-  <div class="col s12">
+  <div id="${doc._id.split('$')[1]}" class="col s12">
     <div class="card horizontal blue-grey darken-1">
       <div class="card-stacked">
         <div class="card-content">
@@ -63,20 +63,26 @@ function inflateDocument(doc, user){
           <p>Data: ${doc.date}</p>
           <p>Hora: ${doc.hour}</p>
           <p>Contato: ${doc.user.contact}</p>
-          <p>${doc.users.length} inscrito${doc.users.length > 1 ? 's' : ''}</p>
         </div>
+        <div class="card-inscritos card-action">
+          <span class="card-title">${doc.users.length} Inscrito${doc.users.length > 1 ? 's' : ''}:</span>
+          <a class="listar-button" _id="${doc._id}" href="#"><span class="show">[+]</span><span>[-]</span></a>`;
+  for(let iuser of doc.users){
+    base += `<p class="lista-inscritos">${iuser.name}</p>`;
+  }
+  base += `</div>
         <div class="card-action">
           <a class="ver-button" lat="${doc.lat}" lng="${doc.lng}" href="#">Ver</a>`;
   try{
     let filtered = doc.users.filter((puser)=>puser.name == user.name);
-    if(filtered !== 0){
-      base += `<a class="desinscrever-button" id="${doc._id}" href="#">Inscrito</a>`
+    if(filtered.length !== 0){
+      base += `<a class="desinscrever-button" _id="${doc._id}" href="#">Inscrito</a>`
     }else{
-      base += `<a class="inscrever-button" id="${doc._id}" href="#">Inscrever-se</a>`;
+      base += `<a class="inscrever-button" _id="${doc._id}" href="#">Inscrever-se</a>`;
     }
   }
   catch(e){
-    base += `<a class="inscrever-button" id="${doc._id}" href="#">Inscrever-se</a>`;
+    base += `<a class="inscrever-button" _id="${doc._id}" href="#">Inscrever-se</a>`;
   }
   base += `
         </div>
@@ -101,8 +107,14 @@ function updateData(){
           centerMap(lat, lng, 12);
         })
         $('.inscrever-button').click(function(){
-          let _id = $(this).attr('id');
+          let _id = $(this).attr('_id');
           ProjectService.subscribe(_id);
+          updateData();
+        })
+        $('.listar-button').click(function(){
+          let _id = $(this).attr('_id').split('$')[1];
+          $(`#${_id} a.listar-button span`).toggleClass('show');
+          $(`#${_id} .lista-inscritos`).toggleClass('show');
         })
       // if()
     })
