@@ -79,6 +79,12 @@ body, .container{
 .menu-items a{
   padding:20px;
   position: fixed;
+  background: transparent;
+  transition: 0.4s;
+}
+
+.menu-items a:hover{
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .menu-items a img{
@@ -100,4 +106,83 @@ body, .container{
 
 .bottom{
   bottom: 0;
+}
+
+/*SOBRE*/
+.sidebar{
+  width: 70px;
+  height: 100vh;
+  background-color:#502ca7;
+  position: fixed;
+}
+
+.sobre-content{
+  width: calc(100vw - 440px);
+  height: calc(100vh - 140px);
+  padding:70px 220px;
+}
+
+.sobre-content  .col{
+  display: inline-flex;
+  height: 100%;
+}
+
+.sobre-content .sobre-description{
+  width:60%;
+}
+
+.sobre-content .sobre-contact{
+  width:35%;
+}
+
+.sobre-container{
+  width:calc(100% - 40px);
+  height:100%;
+  padding: 0 40px 0 0;
+}
+
+.sobre-content .sobre-description .sobre-title{
+  color: #502ca7;
+  text-transform: lowercase;
+  font-size: 5.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.sobre-content .sobre-description p{
+  margin-top: 1rem;
+}
+
+.sobre-content .sobre-contact .contact-container{
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.sobre-content .sobre-contact .contact-container.email{
+  height: 30%;
+}
+
+.sobre-content .sobre-contact .contact-container.creditos{
+  height: 60%;
+}
+
+.sobre-content .sobre-contact h2.contact-title{
+  font-size:1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.sobre-content .sobre-contact h2.contact-title.lab{
+  margin-top: 15px;
+}
+
+.sobre-content .sobre-contact a.contact-info{
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.sobre-content .sobre-contact a.contact-info:hover{
+  color: #6639b6;
 }

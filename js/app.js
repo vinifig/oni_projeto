@@ -70,7 +70,7 @@ function inflateDocument(doc, user){
   try{
     let filtered = doc.users.filter((puser)=>puser.name == user.name);
     if(filtered !== 0){
-      base += `<a disabled id="${doc._id}" href="#">Inscrito</a>`
+      base += `<a class="desinscrever-button" id="${doc._id}" href="#">Inscrito</a>`
     }else{
       base += `<a class="inscrever-button" id="${doc._id}" href="#">Inscrever-se</a>`;
     }
