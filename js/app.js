@@ -45,6 +45,9 @@ function deleteMarkers() {
 }
 
 function centerMap(lat, lng, zoom){
+  if(lat == undefined || lng == undefined || lat.indexOf('\'') != -1 || lng.indexOf('\'') != -1){
+    return alert("Posição não encontrada");
+  }
   let coordinates = new google.maps.LatLng(lat, lng)
   map.setCenter(coordinates);
   if(zoom != undefined){
