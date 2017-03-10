@@ -1,4 +1,4 @@
-var initial_tab = 'novo';
+var initial_tab = 'todos';
 let markers = [];
 let geocoder = new google.maps.Geocoder;
 let guser;
@@ -63,7 +63,7 @@ function inflateDocument(doc, user){
           <p>${doc.description}</p>
           <p>Data: ${doc.date}</p>
           <p>Hora: ${doc.hour}</p>
-          <p>Local: ${doc.local}</p>
+          <p>Local: ${doc.local || '-'}</p>
           <p>Contato: ${doc.user.contact}</p>
         </div>
         <div class="card-inscritos card-action">
