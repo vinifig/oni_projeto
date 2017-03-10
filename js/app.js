@@ -1,5 +1,6 @@
-var initial_tab = 'todos';
+var initial_tab = 'novo';
 let markers = [];
+let geocoder = new google.maps.Geocoder;
 let guser;
 function start(){
   updateData();
@@ -62,6 +63,7 @@ function inflateDocument(doc, user){
           <p>${doc.description}</p>
           <p>Data: ${doc.date}</p>
           <p>Hora: ${doc.hour}</p>
+          <p>Local: ${doc.local}</p>
           <p>Contato: ${doc.user.contact}</p>
         </div>
         <div class="card-inscritos card-action">
@@ -136,13 +138,22 @@ $(document).ready(function(){
     var projectData = ProjectService.arrayParser($(this).serializeArray());
     UserService.getUserLoggedIn()
       .then(function(user){
-        projectData.user = user;
-        ProjectService.insert(projectData)
-        .then(function(result){
-          updateData()
-        })
-        .catch(function(error){
-          console.log(error);
+        geocoder.geocode({
+          address: projectData.local
+        }, function(local, status){
+          if(status == google.maps.GeocoderStatus.OK){
+            projectData.lat = local[0].geometry.location.lat();
+            projectData.lng = local[0].geometry.location.lng();
+          }
+          projectData.user = user;
+          ProjectService.insert(projectData)
+            .then(function(result){
+              updateData()
+            })
+            .catch(function(error){
+              console.log(error);
+            })
+          $('#novo-tab').trigger('reset');
         })
       })
       .catch(function(err){

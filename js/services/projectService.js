@@ -6,6 +6,7 @@ $(document).ready(function(){
     'project_name': 'name',
     'date': 'date',
     'hour': 'hour',
+    'local': 'local',
     'lat': 'lat',
     'lng': 'lng',
     'descricao': 'description'
@@ -65,6 +66,7 @@ $(document).ready(function(){
   ProjectService.arrayParser = function(arr){
     let project = {};
     for(let field of arr){
+      console.log(field)
       project[projectFieldsHash[field.name]] = field.value;
     }
     return project;

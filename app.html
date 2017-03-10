@@ -44,27 +44,31 @@
           </div>
           <form id="novo-tab" class="paneltab row">
             <div class="input-field col s12">
-              <input id="project_name" name="project_name" type="text">
+              <input id="project_name" name="project_name" type="text" required>
               <label for="project_name">Nomeie sua Ação</label>
             </div>
             <div class="input-field col s6">
-              <input id="date" name="date" type="text" >
+              <input id="date" name="date" type="text" required>
               <label for="date">Data</label>
             </div>
             <div class="input-field col s6">
-              <input id="hour" name="hour"type="text" >
+              <input id="hour" name="hour"type="text" required>
               <label for="hour">Hora</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s12">
+              <input id="local" name="local" type="text" required>
+              <label for="local">Local</label>
+            </div>
+            <!-- <div class="input-field col s6">
               <input id="lat" name="lat" type="text">
               <label for="lat">Latitude</label>
             </div>
             <div class="input-field col s6">
               <input id="lng" name="lng" type="text">
               <label for="lng">Longitude</label>
-            </div>
+            </div> -->
             <div class="input-field col s12">
-              <textarea id="descricao" name="descricao" class="materialize-textarea"></textarea>
+              <textarea id="descricao" name="descricao" class="materialize-textarea" required></textarea>
               <label for="textarea1">Descrição</label>
             </div>
             <button id="publicar-button" class="btn waves-effect waves-light" type="submit" name="action">Publicar</button>
